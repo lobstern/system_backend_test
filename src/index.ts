@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express'
 const app = express()
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 443
 
 app.get('/', (req: Request, res: Response) => {
     let helloM = "Hello Bob"
