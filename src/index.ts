@@ -5,8 +5,9 @@ const port = process.env.PORT || 80
 const classes =[{id: 1, title: 'uniqueland'}, {id: 2, title: 'starland'}]
 
 app.get('/', (req: Request, res: Response) => {
-    let helloM = "Hello Bobius"
+    let helloM = "Hello Bobus!"
   res.send(helloM)
+  console.log(req.rawHeaders[11])
 })
 
 app.get('/classes', (req: Request, res: Response) => {
