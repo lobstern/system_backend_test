@@ -1,8 +1,15 @@
 import express, {Request, Response} from 'express'
+import bodyParser from 'body-parser'
+import {classesRouter} from './routes/classes-router'
+
+//Create Express app
 const app = express()
 const port = process.env.PORT || 80
 
-const classes =[{id: 1, title: 'uniqueland'}, {id: 2, title: 'starland'}]
+
+
+const parserMiddleware = bodyParser()
+app.use(parserMiddleware)
 
 app.get('/', (req: Request, res: Response) => {
     let helloM = "Hello Bobus!"
@@ -10,24 +17,9 @@ app.get('/', (req: Request, res: Response) => {
   console.log(req.rawHeaders)
 })
 
-app.get('/classes', (req: Request, res: Response) => {
-  if (req.query.title) {
-    let searchString = req.query.title.toString()
-    res.send(classes.filter(c => c.title.indexOf(searchString) > -1))
-  } else {
-    res.send(classes)
-  }
-})
+app.use('/classes', classesRouter)
 
-app.get('/classes/:id', (req: Request, res: Response) => {
-  let winlandClassId = classes.find(c => c.id === +req.params.id)
-  if (winlandClassId) {
-    res.send(winlandClassId)
-  } else {
-    res.send(404)
-  }
-})
-
+// start app
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
